@@ -28,7 +28,7 @@
     </div>
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
-
+<script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-database.js"></script>
 <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
 <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
@@ -53,6 +53,7 @@
    .then(function() {
      //success
 	  document.getElementById("demo").innerHTML = "ok";
+	  myFunction();
    })
   .catch(function() {
        // Error Handling
@@ -61,8 +62,22 @@
   
 </script>
 <script>
+function myFunction()
+{
+   const dbRef = firebase.database().ref();
+dbRef.child("users").child(userId).get().then(function(snapshot) {
+    if (snapshot.exists()) {
+      console.log(snapshot.val());
+    } else {
+      console.log("No data available");
+    }
+  }).catch(function(error) {
+    console.error(error);
+  });
 
-//document.getElementById("demo").innerHTML = "段落已修改。";
+  
+
+}
 </script>
   </body>
 </html>
