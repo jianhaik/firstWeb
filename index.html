@@ -9,6 +9,8 @@
     <div class="wrapper">
       <div class="title">Login Form</div>
       <form action="#">
+        <p id="demo" align="center">这是一个段落</p>
+        
         <div class="field">
           <input type="text" required>
           <label>UserName</label>
@@ -19,11 +21,48 @@
         </div>
        
         <div class="field">
-          <input type="submit" value="Login">
+          <input type="submit" onclick="getElementById('demo').innerHTML= Date()" value="Login">
         </div>
     
       </form>
     </div>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
 
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyA4-i15XPcyHHxaQBeZJegtvAD9eHUdnX8",
+    authDomain: "dispatch-kang.firebaseapp.com",
+    databaseURL: "https://dispatch-kang.firebaseio.com",
+    projectId: "dispatch-kang",
+    storageBucket: "dispatch-kang.appspot.com",
+    messagingSenderId: "283112092551",
+    appId: "1:283112092551:web:dbca3f3bca6bc9ce405922",
+    measurementId: "G-CT4LH4LMDD"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  
+  const auth = getAuth(firebaseApp);
+  
+   firebase.auth().signInWithEmailAndPassword("kjhlr@hotmail.com", "671691")
+   .then(function() {
+     //success
+	  document.getElementById("demo").innerHTML = "ok";
+   })
+  .catch(function() {
+       // Error Handling
+	  document.getElementById("demo").innerHTML = "Wrong"; 
+  });
+  
+</script>
+<script>
+
+//document.getElementById("demo").innerHTML = "段落已修改。";
+</script>
   </body>
 </html>
