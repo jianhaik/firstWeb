@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="google" value="notranslate">
+    <title>exterminate</title>
+    
+  </head>
+  <body>
+    <div id="exterminateList" style="width:auto;height:auto"></div>
+    <!-- <FORM> <INPUT TYPE='BUTTON' VALUE='close' onClick='createUl2()'></FORM> -->
+  
+  
+   </body>
+    <script>
+    var exterminateArr = new Array();
+    window.onload = function() {
+		exterminateArr.push("Return it");
+		exterminateArr.push("Destroy it");
+            createUl2();
+    };
+    
+	window.onbeforeunload = function() {
+		
+    };
+
+    function createUl2()	{
+		var exterminateList=document.getElementById("exterminateList");
+		//console.log(driverList);
+		// 动态创建ul 内存中创建对象
+		var ul2 = document.createElement('ul');
+		// 把ul放到页面上 把ul放到DOM树上 并且会重新绘制
+		ul2.className="exterminateName";
+		//ul.style.listStyle="none";
+		ul2.style.alignSelf="center";
+		exterminateList.appendChild(ul2);
+        console.log(exterminateArr);
+		// var allDate1 = JSON.parse(window.sessionStorage.getItem('allDate'));
+		// allDate = allDate1;
+		var exterminateName;
+        for (var i=0; i < exterminateArr.length; i++) {
+			exterminateName = exterminateArr[i];
+			// 在内存中动态创建li
+			var li = document.createElement('li');
+			// 把li添加到DOM树 并且重新绘制
+			li.className="exterminateLi";
+			li.style.margin="15px";
+			li.style.backgroundColor="pink";
+			li.style.borderRadius="15px";
+			li.style.padding="5px";
+			ul2.appendChild(li);
+			// 设置li中显示的内容 处理兼容性
+			li.setAttribute("id", i);
+			li.setAttribute("onclick", "getId(this)");
+			
+            setInnerText(li, exterminateName);
+			
+			// 给li注册事件
+			li.onmouseover = liMouseOver;
+			li.onmouseout = liMouseOut;
+			
+		}
+		
+	}
+
+    function getId(obj) {
+	//获得点击li元素的id，垂直列表
+	d=document.getElementsByClassName('exterminateLi');
+	var objId = obj.id;
+	for (var i=0; i < exterminateArr.length; i++) {
+		if(d[i].id!=objId){
+			    d[i].style.backgroundColor='pink'/*其他*/
+		    }else{
+				d[i].style.backgroundColor='blue'/*点击的*/
+				
+				var abc=d[i].innerText;
+				console.log('exterminate='+abc);
+				var json2=localStorage.getItem('userInfo');
+ 				var userInfoObj=JSON.parse(json2);				
+				let myTime= new Date().valueOf();
+	     		var offset=new Date().getTimezoneOffset()*-60*1000; // offset mm
+				var obj = new Object();
+				obj['I0_When'] = (new Date(myTime + offset)).toISOString(); //获取时间戳
+				obj['I1_ByWhoFinish'] = userInfoObj.username;
+				obj['I2_FinishType'] = abc;
+				//obj['I3_Comment'] = value[43];
+				//obj['I4_Photo'] = value[44];
+				obj['L0_LastStep'] = 'Finished';
+				
+				var json4 =JSON.stringify(obj);
+         		window.localStorage.setItem('editObj', json4);
+				window.localStorage.setItem('targetValue', 'exterminate');
+				window.localStorage.setItem('afterChoose', 'new');
+			} 
+	}
+	
+	window.close("exterminate.html");
+
+}
+    // 当鼠标经过的时候执行
+function liMouseOver() {
+	// 高亮显示
+	this.style.color = 'red';
+}
+function liMouseOut() {
+	// 鼠标离开时取消高亮
+	
+		this.style.color = "";
+	
+}
+
+function setInnerText(ele, content) {
+	// 判断当前浏览器是否支持InnerText
+	if (typeof ele.innerText) {
+		ele.innerText = content;
+	} else {
+		ele.innerHTML = content;
+	}
+}
+    </script> 
+        <!-- <FORM> <INPUT TYPE='BUTTON' VALUE='关闭' onClick='window.close()'></FORM> -->
+        <!-- <FORM> <INPUT TYPE='BUTTON' VALUE='关闭' onClick='createUl2()'></FORM>   -->
+   
+
+</html>

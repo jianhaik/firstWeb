@@ -3,20 +3,21 @@
 <head> 
 <meta charset="utf-8"> 
 <meta name="google" value="notranslate">
-<title>菜鸟实践</title> 
+<title>test web page</title> 
     
     <script src="jexcel.js"></script>
     <script src="jsuites.js"></script>
     <link rel="stylesheet" href="jsuites.css" type="text/css" />
     <link rel="stylesheet" href="jexcel.css" type="text/css" />
-        
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
-    <script type="text/javascript" src="myJS.js"></script>
+    
+    
+    <script src="https://www.gstatic.com/firebasejs/9.9.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.9.1/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.9.1/firebase-auth-compat.js"></script>
+    <script type="text/javascript" src="myJS2.js"></script>
     <link rel="stylesheet" href="secondStyle.css">
 </head>
-<body>
+<body style="width:auto;height:auto; margin: 0" >
  
 <div id="container" style="width:auto;height:auto">
    
@@ -24,16 +25,23 @@
         
     <div id="nav" >
         <ul class="navUl">
-
-            <li class="navLi">
-              <div class="dropdown">
+            <li class="navLi"><input type="radio" id="rad01" onclick="radioClick()"></li>
+            <li class="navLi" id="lastLi">
+              <div class="dropdown" id="menuButton">
                 <input id='browse' type='file' accept=".csv" style="display:none" onchange="getFileName()" >
                 <button id="leverMenu" onclick=""> Menu<div id="to_bottom"></div></button>
                 <!-- browse.click() -->
-                <div class="dropdown-content">
-                  <a href="#" onclick="browse.click()" >Add OrigData</a>
+                <div class="dropdown-content" id="listClick">
+                  <a href="#" onclick="addData()" >Add OrigData</a>
                   <a href="#" onclick="refresh()">Refresh</a>
-                  <a href="#">链接 3</a>
+                  <a href="#" onclick="dispatchTo()">Dispatch To</a>
+                  <a href="#" onclick="unDispatch()">unDispatch</a>
+                  <a href="#" onclick="exterminate()">Exterminate By</a>
+                  <a href="#" onclick="deleteItems()">Delete Items</a>
+                  <a href="#" onclick="dispatchAll()">DispatchAll</a>
+                  <a href="#" onclick="unDispatchSpecial()">UnDispatch Sp</a>
+                  <a href="#" onclick="dailyJob()">dailyJob</a>
+                  <a href="#" onclick="oneRowEdit()">Row Edit</a>
                 </div>
               </div>  
             </li>
@@ -44,22 +52,23 @@
             
             <li class="navLi"><button class="navList" onclick="getNavId(this)">Dispatched</button></li>
             
-            <li class="navLi"><button class="navList" onclick="getNavId(this)">Undidpatch</button></li>
+            <li class="navLi"><button class="navList" onclick="getNavId(this)">UnDispatch</button></li>
             
             <li class="navLi"><button class="navList" onclick="getNavId(this)">OrigData</button></li>
             
-            </ul>
+            <p  id="companyName" style="font-family:Times;font-size: large;color:rgb(108, 3, 71)">CompanyName</p>
+        </ul>
         
         
     </div>
  
-    <div id="menu" style="background-color:#FFD700;height: 520px;;width:200px;float:left;"></div>
+    <div id="menu" style="background-color:#FFD700;overflow-y:scroll"></div>
  
     <div id="spreadsheet" tabindex="1" class="jexcel_container"></div>
 
       
-    <div id="footer" style="background-color:#0003D1;clear:both;text-align:center;">
-    版权 © runoob.com</div>
+    <div id="footer" style="background-color:#0003D1;clear:both;">
+    copyright @ kang</div>
  
 </div>
     
@@ -67,13 +76,31 @@
 <script>
    //<h1 style="margin-bottom:0;">主要的网页标题</h1>//#0003D1  #FFA500
    window.onload = function() {
+    
     firebaseInit();
     firebaseAuth();
     saveUserInfo(); 
-    var pathName = userInfoObj.company+"/OrignalData";
+    var pathName = userInfoObj.company+"/OriginalData";
     firebaseSnapShot(pathName);
     
     };
+
+    window.addEventListener('storage', function() {
+      var chooseStatus=localStorage.getItem('afterChoose');
+      console.log(chooseStatus);
+      if(chooseStatus=='new'){
+        window.localStorage.setItem('afterChoose', 'old');
+        
+        targetHandle();
+       
+      }
+
+        });
+
+function addData(){
+  browse.click();
+  dropDownDisappear();
+}
 </script> 
 
 </body>

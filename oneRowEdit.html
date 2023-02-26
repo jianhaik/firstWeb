@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <html lang="en">
+      <meta charset="utf-8"> 
+      <meta name="google" value="notranslate">
+    <title>rowEdit</title>
+    <style type="text/css">
+  .item {
+    
+    position: relative;
+   
+    float:left;
+  }
+  .bottom {
+    
+    display: inline-flex;
+   margin: auto;
+   
+  }       
+         label{
+             width: 250px;
+             
+             display: inline-block;
+             text-align: right;
+             padding-right: 5px;
+             font-weight: bold;
+             font-size: x-large;
+         }
+         input{
+          font-size: x-large;
+         }
+         select{
+          width: 300px;
+          
+          font-size: x-large;
+         }
+         option{
+          width: 250px;
+             
+             display: inline-block;
+             text-align: left;
+             padding-right: 5px;
+             
+             font-size: x-large;
+         }
+          button{
+             width:150px;
+             height: 40px;
+             text-align: center;
+             padding: 10px;
+             font-weight: bold;
+             background-color:rgb(176, 226, 10);
+             border-radius: 30px;
+             margin-left: 350px;
+         }
+    </style>
+    </head>
+
+<body>
+<div class="item">
+  <!-- 1 -->
+  <label for="barcode" style="color:blue;">Barcode:</label>
+  <input type="text" id="barcode" value="Mickey2" style="background-color:rgb(10, 226, 86);"><br><br>
+  <label for="jobID" style="color:blue;">JobID:</label>
+  <input type="text" id="jobID" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+  <label for="modeID" style="color:blue;">ModeID:</label>
+  <select type="text" id="modeID" style="background-color:rgb(226, 222, 10);">
+    <option value="DL">DL</option>
+    <option value="PK">PK</option>
+  </select> <br><br>
+  <label for="carrierRef" style="color:blue;">CarrierRef:</label>
+  <input type="text" id="carrierRef" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+  <label for="scheduledDate" style="color:blue;">ScheduledDate:</label>
+  <input type="text" id="scheduledDate" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+  <label for="btacc" style="color:blue;">BTACC:</label>
+  <input type="text" id="btacc" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+  <label for="serviceType" style="color:blue;">ServiceType:</label>
+  <select type="text" id="serviceType" style="background-color:rgb(226, 222, 10);">
+  <option value="Normal">Normal</option>
+  <option value="HighService">HighService</option>
+  </select> <br><br>
+  
+  <label for="weight" style="color:blue;">Weight:</label>
+  <input type="text" id="weight" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+  <label for="unit" style="color:blue;">Unit:</label>
+  <input type="text" id="unit" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+  <label for="route" style="color:blue;">Route:</label>
+  <input type="text" id="route" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+  <label for="courier" style="color:blue;">Courier:</label>
+  <input type="text" id="courier" value="Mickey2" style="background-color:rgb(226, 10, 179);"><br><br>
+  <label for="size" style="color:blue;">Size:</label>
+  <select type="text" id="size" style="background-color:rgb(226, 222, 10);">
+    <option value="nil">Parcel</option>
+    <option value="Parcel">Parcel</option>
+    <option value="Skid">Skid</option>
+  </select> <br><br>
+  <!-- <input type="text" id="size" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br> -->
+  <label for="howmany" style="color:blue;">HowMany:</label>
+  <select type="text" id="howmany" style="background-color:rgb(226, 222, 10);">
+    <option value="nil">1</option>
+    <option value="1">1</option>
+    <option value="2">2</option> 
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+  </select> <br><br>
+  <!-- <input type="text" id="howmany" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br> -->
+  <label for="starttime" style="color:blue;">StartTime:</label>
+  <input type="text" id="starttime" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+  <label for="endtime" style="color:blue;">EndTime:</label>
+  <input type="text" id="endtime" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+  </div>
+
+<div class="item">
+    <!-- 2 -->
+  <label for="compay" style="color:blue;">Compay:</label>
+    <input type="text" id="compay" value="Mickey2" style="background-color:rgb(10, 226, 212);"><br><br>
+    <label for="address1" style="color:blue;">Address1:</label>
+    <input type="text" id="address1" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+    <label for="address2" style="color:blue;">Address2:</label>
+    <input type="text" id="address2" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+    <label for="address3" style="color:blue;">Address3:</label>
+    <input type="text" id="address3" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+    <label for="receiver" style="color:blue;">Receiver:</label>
+    <input type="text" id="receiver" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+    <label for="city" style="color:blue;">City:</label>
+    <input type="text" id="city" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+    <label for="provState" style="color:blue;">ProvState:</label>
+    <input type="text" id="provState" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+    <label for="postalCode" style="color:blue;">PostalCode:</label>
+    <input type="text" id="postalCode" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+    <label for="phone" style="color:blue;">Phone:</label>
+    <input type="text" id="phone" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+    <label for="email" style="color:blue;">Email:</label>
+    <input type="text" id="email" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+</div>
+
+<div class="bottom" >
+<button onclick="actionCancel()">Cancel</button>
+<button onclick="actionSave()">Save</button>
+</div>
+<script>
+window.onload = function() {
+    
+  readOutPutData();
+    
+};
+function readOutPutData() {
+  var json=localStorage.getItem('outPut');
+  var rowData=JSON.parse(json);
+  
+  document.getElementById('jobID').value=rowData[4];
+  document.getElementById('modeID').value=rowData[5];
+  document.getElementById('barcode').value=rowData[6];
+  document.getElementById('carrierRef').value=rowData[7];
+  document.getElementById('scheduledDate').value=rowData[8];
+  document.getElementById('btacc').value=rowData[9];
+  document.getElementById('serviceType').value=rowData[10];
+  document.getElementById('weight').value=rowData[11];
+  document.getElementById('unit').value=rowData[12];
+  document.getElementById('route').value=rowData[13];
+  document.getElementById('compay').value=rowData[14];
+  document.getElementById('address1').value=rowData[15];
+  document.getElementById('address2').value=rowData[16];
+  document.getElementById('address3').value=rowData[17];
+  document.getElementById('receiver').value=rowData[18];
+  document.getElementById('city').value=rowData[19];
+  document.getElementById('provState').value=rowData[20];
+  document.getElementById('postalCode').value=rowData[21];
+  document.getElementById('phone').value=rowData[22];
+  document.getElementById('email').value=rowData[23];
+  document.getElementById('courier').value=rowData[24];
+  document.getElementById('size').value=rowData[30];
+  document.getElementById('howmany').value=rowData[31];
+  document.getElementById('starttime').value=rowData[32];
+  document.getElementById('endtime').value=rowData[33];
+  
+  document.getElementById('courier').readOnly=true;
+}
+
+function actionCancel() {
+  window.close("oneRowEdit.html");
+}
+function actionSave() {
+  var json2=localStorage.getItem('userInfo');
+  var userInfoObj=JSON.parse(json2);
+  var json=localStorage.getItem('outPut');
+  var rowData=JSON.parse(json);
+  var inputArr=new Array(25);
+ inputArr[0] = document.getElementById('jobID').value;
+ inputArr[1] = document.getElementById('modeID').value;
+ inputArr[2] = document.getElementById('barcode').value;
+ inputArr[3] = document.getElementById('carrierRef').value;
+ inputArr[4] = document.getElementById('scheduledDate').value;
+ inputArr[5] = document.getElementById('btacc').value;
+ inputArr[6] = document.getElementById('serviceType').value;
+ inputArr[7] = document.getElementById('weight').value;
+ inputArr[8] = document.getElementById('unit').value;
+ inputArr[9] = document.getElementById('route').value;
+ inputArr[10] = document.getElementById('compay').value;
+ inputArr[11] = document.getElementById('address1').value;
+ inputArr[12] = document.getElementById('address2').value;
+ inputArr[13] = document.getElementById('address3').value;
+ inputArr[14] = document.getElementById('receiver').value;
+ inputArr[15] = document.getElementById('city').value;
+ inputArr[16] = document.getElementById('provState').value;
+ inputArr[17] = document.getElementById('postalCode').value;
+ inputArr[18] = document.getElementById('phone').value;
+ inputArr[19] = document.getElementById('email').value;
+ inputArr[20] = document.getElementById('courier').value;
+ inputArr[21] = document.getElementById('size').value;
+ inputArr[22] = document.getElementById('howmany').value;
+ inputArr[23] = document.getElementById('starttime').value;
+ inputArr[24] = document.getElementById('endtime').value;
+ 
+ var titleArr=new Array(
+        'B0_JobID',
+        'B1_ModeID',
+        'B2_Barcode',
+        'B3_CarrierRef',
+        'B4_ScheduledDate',
+        'B5_BTaCC',
+        'B6_ServiceType',
+        'B7_Weight',
+        'B8_Unit',
+        'B9_Route',
+        'C0_Company',
+        'C1_Address1',
+        'C2_Address2',
+        'C3_Address3',
+        'C4_Receiver',
+        'C5_City',
+        'C6_ProvState',
+        'C7_PostalCode',
+        'C8_Phone',
+        'C9_Email',
+        'D0_Courier',
+        'D6_Size',
+        'D7_HowMany',
+        'D8_StartTime',
+        'D9_EndTime'
+
+        );
+
+        var obj = new Object();
+        //var ref = firebase.database().ref(userInfoObj.company+'/OriginalData');
+        let myTime= new Date().valueOf();
+	      var offset=new Date().getTimezoneOffset()*-60*1000; // offset mm
+        obj['A0_When'] = (new Date(myTime + offset)).toISOString();; //获取时间戳
+        obj['A1_ByWhoAdd'] = userInfoObj.username;
+        if(inputArr[2]!=rowData[6]){//new item
+          obj['L0_LastStep'] = 'UnDispatch';
+          for (var i2 = 0; i2 < 21; i2++) {
+            obj[titleArr[i2]] = inputArr[i2];
+          }
+          for (var i3 = 21; i3 < 25; i3++) {
+           
+              if(i3==21 && inputArr[i3]=='nil'){
+                obj[titleArr[i3]] ='Parcel';
+              }else{
+                if(i3==22 && inputArr[i3]=='nil'){
+                  obj[titleArr[i3]] ='1';
+                }else{
+                  obj[titleArr[i3]] = inputArr[i3];
+                }
+              }			
+            
+          }
+
+        }else{
+          if(rowData[59]=='Finished'){
+          //obj['L0_LastStep'] = 'Finished';
+          obj['I1_ByWhoFinish'] = userInfoObj.username;
+          }else{//not finished
+          obj['L0_LastStep'] = 'UnDispatch';
+          
+          }
+        
+          for (var i4 = 0; i4 < 21; i4++) {
+              if(inputArr[i4]!=rowData[i4+4]){
+                obj[titleArr[i4]] = inputArr[i4];
+        
+              }
+          }
+          for (var i = 21; i < 25; i++) {
+              if(inputArr[i]!=rowData[i+9]){
+                if(i==21 && inputArr[i]=='nil'){
+                  obj[titleArr[i]] ='Parcel';
+                }else{
+                  if(i==22 && inputArr[i]=='nil'){
+                    obj[titleArr[i]] ='1';
+                  }else{
+                    obj[titleArr[i]] = inputArr[i];
+                  }
+                }			
+              }
+          }
+
+        }
+        
+        if(Object.keys(obj).length>=4){
+          if(inputArr[2]!=rowData[6]){//new item
+            window.localStorage.setItem('targetValue', 'newRowEdit');
+          }else{
+            window.localStorage.setItem('targetValue', 'oneRowEdit');
+          }
+          var json4 =JSON.stringify(obj);
+          window.localStorage.setItem('editObj', json4);
+          
+          window.localStorage.setItem('afterChoose', 'new');
+          window.close("oneRowEdit.html");
+        }else{
+          console.log(obj);
+          console.log(Object.keys(obj).length);
+          window.alert("Nothing changed!");
+        }
+}
+</script>
+
+</body>
+</html>

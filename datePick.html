@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"> 
+    <meta name="google" value="notranslate">
+    <title>calender</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        ul {
+            display: flex;
+            flex-direction: row;
+        }
+        li {
+            display: block;
+            list-style: none;
+        }
+        body {
+            background-color: rgb(236, 195, 202);
+        }
+  
+        .cal-container .year-month>div:first-child>span,
+        .cal-container .year-month .pre,
+        .cal-container .year-month .next,
+        .cal-container .weeks>ul>li,
+        .cal-container .days>ul .style-default {
+            cursor: pointer;
+        }
+        .cal-container .year-month .pre:hover,
+        .cal-container .year-month .next:hover,
+        .cal-container .weeks>ul>li:hover {
+            text-shadow: 2px 2px 2px rgb(121, 121, 121);
+        }
+  
+        .cal-container {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            width: 600px;
+            margin-left: -300px;
+            box-shadow: 7px 7px 7px rgb(112, 112, 112);
+            background-color: aquamarine;
+        }
+        .cal-container .year-month {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            background-color: rgb(107, 215, 168);
+        }
+        .cal-container .year-month>div:first-child {
+            display: flex;
+            flex-direction: row;
+            position: absolute;
+            top: 70%;
+            left: 50%;
+            width: 200px;
+            height: 70px;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            letter-spacing: 3px;
+        }
+        .cal-container .year-month>div:first-child>span {
+            display: block;
+            margin-top: 5px;
+            font-weight: 700;
+            color: purple; 
+        }
+        .cal-container .year-month>div:first-child>span:first-child {
+            font-size: 25px;
+        }
+        .cal-container .year-month>div:first-child>span:last-child {
+            font-size: 25px;
+        }
+        .cal-container .year-month .pre,
+        .cal-container .year-month .next {
+            position: absolute;
+            top: 30%;
+            height: 50px;
+            transform: translateY(-20px);
+            margin: 0 20px;
+            font-size: 40px;
+            color: white;
+        }
+        .cal-container .year-month .next {
+            right: 0;
+        }
+  
+        .cal-container .weeks>ul,
+        .cal-container .days>ul {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 100%;
+            padding: 0 2.5px;
+            background-color: rgb(202, 202, 202);
+        }
+        .cal-container .days>ul {
+            padding: 20px 0;
+            background-color: rgb(225, 225, 225);
+        }
+        .cal-container .weeks>ul>li {
+            width: 85px;
+            font-size: 20px;
+            font-weight: 700;
+            color: rgb(75, 75, 75);
+            text-align: center;
+            line-height: 50px;
+        }
+  
+        .style-default {
+            width: 50px;
+            height: 50px;
+            margin: 0 17.5px;
+            font-size: 20px;
+            font-weight: 700;
+            color: rgb(75, 75, 75);
+            text-align: center;
+            line-height: 50px;
+        }
+        .days>ul .style-default:hover {
+            background-color: rgb(202, 202, 202);
+        }
+        .cal-container .days>ul .bg-style {
+            background-color: rgb(107, 215, 168);
+        }
+        .no-style {
+            width: 50px;
+            height: 50px;
+            margin: 0 17.5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="cal-container">
+        <div class="year-month">
+            <div>
+                <span id="month"></span>
+				<span id="year"></span>
+            </div>
+            <div class="pre" id="pre-month">&lt;</div>
+            <div class="next" id="next-month">&gt;</div>
+        </div>
+        <div class="weeks">
+            <ul>
+                <li>Sun</li>
+                <li>Mon</li>
+                <li>Tue</li>
+                <li>Wed</li>
+                <li>Thu</li>
+                <li>Fri</li>
+                <li>Sat</li>
+                
+            </ul>
+        </div>
+        <div class="days">
+            <ul id="day"></ul>
+        </div>
+    </div>
+    <script>
+        // 获取年月日和星期几
+        let date = new Date();
+        Y = date.getFullYear();
+        M = date.getMonth();
+        W = date.getDay();
+        D = date.getDate();
+        isSelect = true;    //true为选择了月，false为选择了年（添加文本阴影）
+  
+        // 更新当前年
+        let yearNow = document.getElementById("year");
+        yearNow.innerHTML = Y;
+        // 更新当前月
+        let monthNow = document.getElementById("month");
+        monthNow.innerHTML = monthAndMaxDay(Y, M)[0];
+        // 判断选中年还是月（添加文本阴影）
+        selected(isSelect);
+        //更新当前日
+        let days = document.getElementById("day");
+        updateAllDays(Y, M);
+  
+        // 选择按月切换还是按年切换
+        yearNow.addEventListener("click", function() { 
+            isSelect = true
+            selected(isSelect); 
+        });
+        monthNow.addEventListener("click", function() { 
+            isSelect = true;
+            selected(isSelect); 
+        });
+         
+        // 左右切换日期
+        let previous = document.getElementById("pre-month");
+        previous.addEventListener("click", function() { changePage(true); });
+        let next = document.getElementById("next-month");
+        next.addEventListener("click", function() { changePage(false); });
+         
+        // 按日查询对应的星期几
+        function dayToStar(year, month, day) {
+            let theDate = new Date(year, month, day);
+            return theDate.getDay();
+        }
+  
+        // 查询一个月对应的英文命名和最大天数
+        function monthAndMaxDay(year, month) {
+            let month_now = "";
+            let maxDay = 0;     // 一个月的最大天数
+            switch(month+1) {
+                case 1: month_now = "Jan"; maxDay = 31; break;
+                case 2: 
+                    month_now = "Feb";
+                    if(year % 4 == 0) {
+                        maxDay = 29;
+                    } else {
+                        maxDay = 28;
+                    }
+                    break;
+                case 3: month_now = "Mar"; maxDay = 31; break;
+                case 4: month_now = "Apr"; maxDay = 30; break;
+                case 5: month_now = "May"; maxDay = 31; break;
+                case 6: month_now = "Jun"; maxDay = 30; break;
+                case 7: month_now = "Jul"; maxDay = 31; break;
+                case 8: month_now = "Aug"; maxDay = 31; break;
+                case 9: month_now = "Sep"; maxDay = 30; break;
+                case 10: month_now = "Oct"; maxDay = 31; break;
+                case 11: month_now = "Nov"; maxDay = 30; break;
+                case 12: month_now = "Dec"; maxDay = 31; break;
+                default: month = "";
+            }
+            return [month_now, maxDay];
+        }
+  
+        // 更新当前月的所有天数
+        function updateAllDays(year, month) {
+            let offset = dayToStar(year, month, 1);
+            let maxDay = monthAndMaxDay(year, month)[1];
+             
+            // 实现日期和星期对应
+            for(let i=0; i<offset; i++) {
+                let day = document.createElement("li");
+                day.className = "no-style";
+                days.appendChild(day);
+            }
+             
+            for(let i=1; i<=maxDay; i++) {
+                let day = document.createElement("li");
+                let dateNow = new Date();
+                // 当前日期有绿色背景
+                if(year == dateNow.getFullYear() && month == dateNow.getMonth() && i == dateNow.getDate()) {
+                    day.className = "style-default bg-style"
+                } else {
+                    day.className = "style-default";
+                }
+                day.id = i;
+                day.innerText = i
+                day.addEventListener("click", function() { 
+                    window.close("datePick.html");
+                    window.alert(year+"/"+(month+1)+"/"+i);
+                    getDeliveryData();
+                    });
+                days.appendChild(day);
+            }
+        }
+  
+        function getDeliveryData() {
+            
+        }
+
+        // 选择按月切换还是按年切换
+        function selected(boolean) {
+            if(boolean) {
+                monthNow.style.textShadow = "2px 2px 2px rgb(121, 121, 121)";
+                yearNow.style.textShadow = "none";
+            } else {
+                monthNow.style.textShadow = "none";
+                yearNow.style.textShadow = "2px 2px 2px rgb(121, 121, 121)";
+            }
+        }
+         
+        // 点击切换事件
+        function changePage(boolean) {
+            // 按年切换还是按月切换
+            if(isSelect) {
+                // 向前切换还是向后切换
+                if(boolean) {
+                    M = M-1;
+                    if(M == -1) {
+                        Y--;
+                        M = 11;
+                    }
+                } else {
+                    M = M+1;
+                    if(M == 11) {
+                        Y++;
+                        M = 0;
+                    }
+                }
+            } else {
+                if(boolean) {
+                    Y--;
+                } else {
+                    Y++;
+                }
+            }
+            yearNow.innerHTML = Y;
+            monthNow.innerHTML = monthAndMaxDay(Y, M)[0];
+            // 清空一个月所有天数
+            days.innerHTML = "";
+            // 重新添加一个月所有天数
+            updateAllDays(Y, M);
+        }
+        </script>
+</body>
+</html>

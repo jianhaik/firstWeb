@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="google" value="notranslate">
+    <title>driverDate</title>
+    <style type="text/css">
+		label{
+			width: 250px;
+			
+			display: inline-block;
+			text-align: right;
+			padding-right: 5px;
+			font-weight: bold;
+			font-size: x-large;
+		}
+		select{
+			width: 250px;
+			font-size: x-large;
+		 display: inline-block;
+		 text-align: left;
+		 background-color:rgb(176, 226, 10);
+		}
+		
+		 button{
+			width:100px;
+			height: 30px;
+			text-align: center;
+			
+			font-weight: bold;
+			background-color:rgb(18, 178, 71);
+			border-radius: 10px;
+			 margin-left: 150px;
+		}
+   </style>
+  </head>
+  <body>
+    
+		<div class="select_wrap" id="selectWrap" style="width:auto;height:auto">
+			<dl>
+			  <dd>
+				<label for="driver" style="color:blue;">Driver:</label>
+				<select id="selectElem" >
+				  
+				</select>
+				<br> <br> 
+				<label for="from" style="color:blue;">Date From:</label>
+				<select id="dateFrom" >
+					 
+				</select>
+				<br> <br> 
+				<label for="to" style="color:blue;">Date To:</label>
+				<select id="dateTo" >
+					
+				</select> 
+				
+			  </dd>
+			</dl>
+		  </div>
+		  <div class="bottom" >
+			<button onclick="actionCancel()">Cancel</button>
+			<button onclick="actionSave()">ShowJob</button>
+			</div>
+   </body>
+    <script>
+		
+    var driverArr = new Array();
+    window.onload = function() {
+            var driver = window.sessionStorage.getItem('driverList');
+            var driverArr1=JSON.parse(driver);
+            driverArr=driverArr1;
+            createUl2();
+    };
+
+    function createUl2()	{
+		var selectItems=document.getElementById("selectElem");
+        var option = document.createElement('option');
+		// 把ul放到页面上 把ul放到DOM树上 并且会重新绘制
+		option.className="driverName";
+		//ul.style.listStyle="none";
+		option.style.alignSelf="center";
+		option.appendChild(document.createTextNode('all drivers'));
+		option.setAttribute('value','all drivers')
+		selectItems.appendChild(option);
+		var driverName;
+        for (var i=0; i < driverArr.length; i++) {
+			 driverName = driverArr[i];
+		var option = document.createElement('option');
+		// 把ul放到页面上 把ul放到DOM树上 并且会重新绘制
+		option.className="driverName";
+		//ul.style.listStyle="none";
+		option.style.alignSelf="center";
+		option.appendChild(document.createTextNode(driverName));
+		option.setAttribute('value',driverName)
+		selectItems.appendChild(option);
+			
+		}
+		
+		
+		var myDateFrom=document.getElementById("dateFrom");
+		 var d = new Date();
+		 d=d.setDate(d.getDate()+1);
+		 d=new Date(d);
+		for (var k=0; k < 30; k++) {
+			d=d.setDate(d.getDate()-1);
+ 			d=new Date(d);
+		var	myDate=d.toLocaleDateString();
+		var optionY = document.createElement('option');
+		optionY.style.alignSelf="center";
+		optionY.appendChild(document.createTextNode(myDate));
+		optionY.setAttribute('value',myDate)
+		myDateFrom.appendChild(optionY);
+			
+		}
+		
+		var myDateTo=document.getElementById("dateTo");
+		var d2 = new Date();
+		d2=d2.setDate(d2.getDate()+1);
+		d2=new Date(d2);
+		for (var j=0; j < 30; j++) {
+			d2=d2.setDate(d2.getDate()-1);
+ 			d2=new Date(d2);
+		var	myDate2=d2.toLocaleDateString();
+		var optionM = document.createElement('option');
+		optionM.style.alignSelf="center";
+		optionM.appendChild(document.createTextNode(myDate2));
+		optionM.setAttribute('value',myDate2)
+		myDateTo.appendChild(optionM);
+			
+		}
+		
+	}
+
+	function actionCancel()	{
+		window.close("driverDate.html");
+	}
+
+	function actionSave()	{
+		var selectItems=document.getElementById("selectElem");
+		var selectYear=document.getElementById("dateFrom");
+		var selectMonth=document.getElementById("dateTo");
+		
+		var driver=selectItems.value;
+		var yy=selectYear.value;
+		var mm=selectMonth.value;
+		
+		
+		var obj = new Object();
+		obj['driver'] = driver;
+		obj['dateFrom'] = yy;
+		obj['dateTo'] = mm;
+		
+		var json4 =JSON.stringify(obj);
+		window.localStorage.setItem('editObj', json4);
+		window.localStorage.setItem('targetValue', 'dailyJob');
+		window.localStorage.setItem('afterChoose', 'new');
+		window.close("driverDate.html");
+	}
+    // 当鼠标经过的时候执行
+
+
+
+    </script> 
+        
+   
+
+</html>

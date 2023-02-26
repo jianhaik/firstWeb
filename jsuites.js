@@ -109,7 +109,7 @@ var jSuites = function(options) {
             }
 
             // Which component I am clicking
-            var path = event.path || (event.composedPath && event.composedPath());
+            var path = event.composedPath || (event.composedPath && event.composedPath());
 
             // If path available get the first element in the chain
             if (path) {
@@ -6703,7 +6703,6 @@ jSuites.getPosition = function(e) {
         var x = (window.Event) ? e.pageX : e.clientX + (document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft);
         var y = (window.Event) ? e.pageY : e.clientY + (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop);
     }
-
     return [ x, y ];
 }
 

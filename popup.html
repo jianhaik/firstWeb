@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="google" value="notranslate">
+    <title>driverLis</title>
+    
+  </head>
+  <body>
+    <div id="driverList" style="width:auto;height:auto"></div>
+    <!-- <FORM> <INPUT TYPE='BUTTON' VALUE='close' onClick='createUl2()'></FORM> -->
+  
+  
+   </body>
+    <script>
+    var driverArr = new Array();
+    window.onload = function() {
+            var driver = window.sessionStorage.getItem('driverList');
+            var driverArr1=JSON.parse(driver);
+            driverArr=driverArr1;
+            createUl2();
+    };
+    
+	window.onbeforeunload = function() {
+		//var json1=window.sessionStorage.getItem('userInfo');
+		//window.localStorage.setItem('refresh', 'true');
+		//window.localStorage.setItem('userInfo', json1);
+		//this.opener.close();
+		//history.back();
+    };
+
+    function createUl2()	{
+		var driverList=document.getElementById("driverList");
+		//console.log(driverList);
+		// 动态创建ul 内存中创建对象
+		var ul2 = document.createElement('ul');
+		// 把ul放到页面上 把ul放到DOM树上 并且会重新绘制
+		ul2.className="driverName";
+		//ul.style.listStyle="none";
+		ul2.style.alignSelf="center";
+		driverList.appendChild(ul2);
+        console.log(driverArr);
+		// var allDate1 = JSON.parse(window.sessionStorage.getItem('allDate'));
+		// allDate = allDate1;
+		var driverName;
+        for (var i=0; i < driverArr.length; i++) {
+			 driverName = driverArr[i];
+			// 在内存中动态创建li
+			var li = document.createElement('li');
+			// 把li添加到DOM树 并且重新绘制
+			li.className="driverLi";
+			li.style.margin="15px";
+			li.style.backgroundColor="pink";
+			li.style.borderRadius="15px";
+			li.style.padding="5px";
+			ul2.appendChild(li);
+			// 设置li中显示的内容 处理兼容性
+			li.setAttribute("id", i);
+			li.setAttribute("onclick", "getId(this)");
+			
+            setInnerText(li, driverName);
+			
+			// 给li注册事件
+			li.onmouseover = liMouseOver;
+			li.onmouseout = liMouseOut;
+			
+		}
+		
+	}
+
+    function getId(obj) {
+	//获得点击li元素的id，垂直列表
+	d=document.getElementsByClassName('driverLi');
+	var objId = obj.id;
+	for (var i=0; i < driverArr.length; i++) {
+		if(d[i].id!=objId){
+			    d[i].style.backgroundColor='pink'/*其他*/
+		    }else{
+				d[i].style.backgroundColor='blue'/*点击的*/
+				
+				var abc=d[i].innerText;
+				console.log('driver='+abc);
+				var json2=localStorage.getItem('userInfo');
+ 				var userInfoObj=JSON.parse(json2);
+				var obj = new Object();
+				let myTime= new Date().valueOf();
+	     		var offset=new Date().getTimezoneOffset()*-60*1000; // offset mm
+				obj['F0_When'] = (new Date(myTime + offset)).toISOString(); //获取时间戳
+				obj['F1_ByWhoDispatch'] = userInfoObj.username;
+				obj['F2_ToWho'] = abc;
+				obj['L0_LastStep'] = 'Dispatched';				
+				var json4 =JSON.stringify(obj);
+         		window.localStorage.setItem('editObj', json4);
+				window.localStorage.setItem('targetValue', 'dispatchTo');
+				window.localStorage.setItem('afterChoose', 'new');
+			} 
+	}
+	
+	window.close("popup.html");
+
+}
+    // 当鼠标经过的时候执行
+function liMouseOver() {
+	// 高亮显示
+	this.style.color = 'red';
+}
+function liMouseOut() {
+	// 鼠标离开时取消高亮
+	
+		this.style.color = "";
+	
+}
+
+function setInnerText(ele, content) {
+	// 判断当前浏览器是否支持InnerText
+	if (typeof ele.innerText) {
+		ele.innerText = content;
+	} else {
+		ele.innerHTML = content;
+	}
+}
+    </script> 
+        <!-- <FORM> <INPUT TYPE='BUTTON' VALUE='关闭' onClick='window.close()'></FORM> -->
+        <!-- <FORM> <INPUT TYPE='BUTTON' VALUE='关闭' onClick='createUl2()'></FORM>   -->
+   
+
+</html>

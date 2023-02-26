@@ -6434,7 +6434,7 @@ if (! jSuites && typeof(require) === 'function') {
             obj.searchInput.onfocus = function() {
                 obj.resetSelection();
             }
-
+            
             // Pagination select option
             var paginationUpdateContainer = document.createElement('div');
 
@@ -8827,24 +8827,38 @@ if (! jSuites && typeof(require) === 'function') {
             }
 
             // Selection must be within the existing data
-            if (x1 >= obj.headers.length) {
+            if (x1 >= obj.headers.length) {  
                 x1 = obj.headers.length - 1;
             }
-            if (y1 >= obj.rows.length) {
+            if (y1 >= obj.rows.length) {                
                 y1 = obj.rows.length - 1;
             }
-            if (x2 >= obj.headers.length) {
+            if (x2 >= obj.headers.length) {                
                 x2 = obj.headers.length - 1;
             }
-            if (y2 >= obj.rows.length) {
+            if (y2 >= obj.rows.length) {               
                 y2 = obj.rows.length - 1;
             }
+
+            // if (x1 < 0) {  
+            //     x1 = 0;
+            // }
+            // if (y1 < 0) {                
+            //     y1 = 0;
+            // }
+            // if (x2 < 0) {                
+            //     x2 = 0;
+            // }
+            // if (y2 < 0) {               
+            //     y2 = 0;
+            // }
 
             // Keep selected cell
             obj.selectedCell = [x1, y1, x2, y2];
 
             // Select cells
-            if (x1 != null) {
+            if (x1 != null && y1 != null) {
+                console.log('x1='+x1,'y1='+y1);
                 // Add selected cell
                 if (obj.records[y1][x1]) {
                     obj.records[y1][x1].classList.add('highlight-selected');
@@ -9119,6 +9133,7 @@ if (! jSuites && typeof(require) === 'function') {
             var h1 = contentRect.height;
 
             // Direction Left or Up
+            console.log(obj.selectedCell);
             var reference = obj.records[obj.selectedCell[3]][obj.selectedCell[2]];
 
             // Reference
