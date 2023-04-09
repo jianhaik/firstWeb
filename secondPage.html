@@ -28,11 +28,11 @@
             <li class="navLi"><input type="radio" id="rad01" onclick="radioClick()"></li>
             <li class="navLi" id="lastLi">
               <div class="dropdown" id="menuButton">
-                <input id='browse' type='file' accept=".csv" style="display:none" onchange="getFileName()" >
+                <input id='browseFile' type='file' accept=".csv" style="display:none" onchange="getFileName()" >
                 <button id="leverMenu" onclick=""> Menu<div id="to_bottom"></div></button>
                 <!-- browse.click() -->
                 <div class="dropdown-content" id="listClick">
-                  <a href="#" onclick="addData()" >Add OrigData</a>
+                  <!-- <a href="#" onclick="addData()" >Add OrigData</a> -->
                   <a href="#" onclick="refresh()">Refresh</a>
                   <a href="#" onclick="dispatchTo()">Dispatch To</a>
                   <a href="#" onclick="unDispatch()">unDispatch</a>
@@ -98,7 +98,7 @@
         });
 
 function addData(){
-  browse.click();
+  browseFile.click();
   dropDownDisappear();
 }
 </script> 
