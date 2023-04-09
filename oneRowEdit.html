@@ -6,16 +6,21 @@
       <meta name="google" value="notranslate">
     <title>rowEdit</title>
     <style type="text/css">
+      body{text-align: center;}
+  .container {
+    display:block;
+    margin: 0 auto;
+    width: 1020px;
+  }
   .item {
-    
-    position: relative;
-   
-    float:left;
+    vertical-align: top;
+    display: inline-block;
+    width: 510px;
+    padding-right: 35px;
   }
   .bottom {
-    
-    display: inline-flex;
-   margin: auto;
+    display: block;
+  
    
   }       
          label{
@@ -27,22 +32,16 @@
              font-weight: bold;
              font-size: x-large;
          }
-         input{
-          font-size: x-large;
-         }
-         select{
-          width: 300px;
-          
-          font-size: x-large;
-         }
-         option{
+         
+         input, select ,option{
           width: 250px;
-             
-             display: inline-block;
+          font-size: x-large;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+          }
+         option{
              text-align: left;
-             padding-right: 5px;
-             
-             font-size: x-large;
          }
           button{
              width:150px;
@@ -52,93 +51,97 @@
              font-weight: bold;
              background-color:rgb(176, 226, 10);
              border-radius: 30px;
-             margin-left: 350px;
+             margin: 10px 150px 10px 150px; 
          }
     </style>
     </head>
 
 <body>
-<div class="item">
-  <!-- 1 -->
-  <label for="barcode" style="color:blue;">Barcode:</label>
-  <input type="text" id="barcode" value="Mickey2" style="background-color:rgb(10, 226, 86);"><br><br>
-  <label for="jobID" style="color:blue;">JobID:</label>
-  <input type="text" id="jobID" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
-  <label for="modeID" style="color:blue;">ModeID:</label>
-  <select type="text" id="modeID" style="background-color:rgb(226, 222, 10);">
-    <option value="DL">DL</option>
-    <option value="PK">PK</option>
-  </select> <br><br>
-  <label for="carrierRef" style="color:blue;">CarrierRef:</label>
-  <input type="text" id="carrierRef" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
-  <label for="scheduledDate" style="color:blue;">ScheduledDate:</label>
-  <input type="text" id="scheduledDate" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
-  <label for="btacc" style="color:blue;">BTACC:</label>
-  <input type="text" id="btacc" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
-  <label for="serviceType" style="color:blue;">ServiceType:</label>
-  <select type="text" id="serviceType" style="background-color:rgb(226, 222, 10);">
-  <option value="Normal">Normal</option>
-  <option value="HighService">HighService</option>
-  </select> <br><br>
-  
-  <label for="weight" style="color:blue;">Weight:</label>
-  <input type="text" id="weight" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
-  <label for="unit" style="color:blue;">Unit:</label>
-  <input type="text" id="unit" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
-  <label for="route" style="color:blue;">Route:</label>
-  <input type="text" id="route" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
-  <label for="courier" style="color:blue;">Courier:</label>
-  <input type="text" id="courier" value="Mickey2" style="background-color:rgb(226, 10, 179);"><br><br>
-  <label for="size" style="color:blue;">Size:</label>
-  <select type="text" id="size" style="background-color:rgb(226, 222, 10);">
-    <option value="nil">Parcel</option>
-    <option value="Parcel">Parcel</option>
-    <option value="Skid">Skid</option>
-  </select> <br><br>
-  <!-- <input type="text" id="size" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br> -->
-  <label for="howmany" style="color:blue;">HowMany:</label>
-  <select type="text" id="howmany" style="background-color:rgb(226, 222, 10);">
-    <option value="nil">1</option>
-    <option value="1">1</option>
-    <option value="2">2</option> 
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-  </select> <br><br>
-  <!-- <input type="text" id="howmany" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br> -->
-  <label for="starttime" style="color:blue;">StartTime:</label>
-  <input type="text" id="starttime" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
-  <label for="endtime" style="color:blue;">EndTime:</label>
-  <input type="text" id="endtime" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+<div type="text" id="container" style="width:auto;height:auto">
+  <div type="text" class="item">
+    <!-- 1 -->
+    <label for="barcode" style="color:blue;">Barcode:</label>
+    <input type="text" id="barcode" value="Mickey2" style="background-color:rgb(10, 226, 86);"><br><br>
+    <label for="jobID" style="color:blue;">JobID:</label>
+    <input type="text" id="jobID" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+    <label for="modeID" style="color:blue;">ModeID:</label>
+    <select type="text" id="modeID" style="background-color:rgb(226, 222, 10);">
+      <option value="DL">DL</option>
+      <option value="PK">PK</option>
+    </select> <br><br>
+    <label for="carrierRef" style="color:blue;">CarrierRef:</label>
+    <input type="text" id="carrierRef" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+    <label for="scheduledDate" style="color:blue;">ScheduledDate:</label>
+    <input type="text" id="scheduledDate" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+    <label for="btacc" style="color:blue;">BTACC:</label>
+    <input type="text" id="btacc" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+    <label for="serviceType" style="color:blue;">ServiceType:</label>
+    <select type="text" id="serviceType" style="background-color:rgb(226, 222, 10);">
+      <option type="text" value="Normal" style="background-color:rgb(226, 222, 10);">Normal</option>
+      <option type="text" value="HighService" style="background-color:rgb(226, 222, 10);">HighService</option>
+    </select> <br><br>
+    
+    <label for="weight" style="color:blue;">Weight:</label>
+    <input type="text" id="weight" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+    <label for="unit" style="color:blue;">Unit:</label>
+    <select type="text" id="unit" style="background-color:rgb(226, 222, 10);">
+      <option type="text" value="kg" style="background-color:rgb(226, 222, 10);">kg</option>
+      <option type="text" value="lb" style="background-color:rgb(226, 222, 10);">lb</option>
+    </select> <br><br>
+    <label for="route" style="color:blue;">Route:</label>
+    <input type="text" id="route" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+    <label for="courier" style="color:blue;">Courier:</label>
+    <input type="text" id="courier" value="Mickey2" style="background-color:rgb(226, 10, 179);"><br><br>
+    <label for="size" style="color:blue;">Size:</label>
+    <select type="text" id="size" style="background-color:rgb(226, 222, 10);">
+      <option value="nil">Parcel</option>
+      <option value="Parcel">Parcel</option>
+      <option value="Skid">Skid</option>
+    </select> <br><br>
+    <!-- <input type="text" id="size" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br> -->
+    <label for="howmany" style="color:blue;">HowMany:</label>
+    <select type="text" id="howmany" style="background-color:rgb(226, 222, 10);">
+      <option value="nil">1</option>
+      <option value="1">1</option>
+      <option value="2">2</option> 
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+    </select> <br><br>
+    <!-- <input type="text" id="howmany" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br> -->
+    <label for="starttime" style="color:blue;">StartTime:</label>
+    <input type="text" id="starttime" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+    <label for="endtime" style="color:blue;">EndTime:</label>
+    <input type="text" id="endtime" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+    </div>
+
+  <div type="text" class="item">
+      <!-- 2 -->
+    <label for="compay" style="color:blue;">Compay:</label>
+      <input type="text" id="compay" value="Mickey2" style="background-color:rgb(10, 226, 212);"><br><br>
+      <label for="address1" style="color:blue;">Address1:</label>
+      <input type="text" id="address1" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+      <label for="address2" style="color:blue;">Address2:</label>
+      <input type="text" id="address2" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+      <label for="address3" style="color:blue;">Address3:</label>
+      <input type="text" id="address3" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+      <label for="receiver" style="color:blue;">Receiver:</label>
+      <input type="text" id="receiver" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+      <label for="city" style="color:blue;">City:</label>
+      <input type="text" id="city" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+      <label for="provState" style="color:blue;">ProvState:</label>
+      <input type="text" id="provState" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+      <label for="postalCode" style="color:blue;">PostalCode:</label>
+      <input type="text" id="postalCode" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+      <label for="phone" style="color:blue;">Phone:</label>
+      <input type="text" id="phone" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+      <label for="email" style="color:blue;">Email:</label>
+      <input type="text" id="email" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
   </div>
-
-<div class="item">
-    <!-- 2 -->
-  <label for="compay" style="color:blue;">Compay:</label>
-    <input type="text" id="compay" value="Mickey2" style="background-color:rgb(10, 226, 212);"><br><br>
-    <label for="address1" style="color:blue;">Address1:</label>
-    <input type="text" id="address1" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
-    <label for="address2" style="color:blue;">Address2:</label>
-    <input type="text" id="address2" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
-    <label for="address3" style="color:blue;">Address3:</label>
-    <input type="text" id="address3" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
-    <label for="receiver" style="color:blue;">Receiver:</label>
-    <input type="text" id="receiver" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
-    <label for="city" style="color:blue;">City:</label>
-    <input type="text" id="city" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
-    <label for="provState" style="color:blue;">ProvState:</label>
-    <input type="text" id="provState" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
-    <label for="postalCode" style="color:blue;">PostalCode:</label>
-    <input type="text" id="postalCode" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
-    <label for="phone" style="color:blue;">Phone:</label>
-    <input type="text" id="phone" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
-    <label for="email" style="color:blue;">Email:</label>
-    <input type="text" id="email" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
 </div>
-
 <div class="bottom" >
 <button onclick="actionCancel()">Cancel</button>
 <button onclick="actionSave()">Save</button>

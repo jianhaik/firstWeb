@@ -1690,61 +1690,145 @@ function deleteItems(){
 			break;
 	} 
 
-	var ref = firebase.database().ref(userInfoObj.company+'/OriginalData');
+	var refOrig = firebase.database().ref(userInfoObj.company+'/OriginalData');
+	var refBackup = firebase.database().ref(userInfoObj.company+'/BackupData');
 	
-	  for (var k = 0; k < barcodeChoosedArr.length; k++){
-		var newPostRef = ref.child(barcodeChoosedArr[k]);
-		newPostRef.remove();
-	  }
-	  barcodeChoosedArr=[];
-	  refresh();
+	let map = new Map();
+	var tempArr = new Array();
+	for (var k = 0; k < barcodeChoosedArr.length; k++){
+		tempArr=[];
+		tempArr=dataMap.get(barcodeChoosedArr[k]);
+		map.set(barcodeChoosedArr[k],tempArr);
+	}
+	console.log(map);
+	var backupArr=[
+		'A0_When',
+		'A1_ByWhoAdd',
+		'B0_JobID',
+		'B1_ModeID',
+		'B2_Barcode',
+		'B3_CarrierRef',
+		'B4_ScheduledDate',
+		'B5_BTaCC',
+		'B6_ServiceType',
+		'B7_Weight',
+		'B8_Unit',
+		'B9_Route',
+		'C0_Company',
+		'C1_Address1',
+		'C2_Address2',
+		'C3_Address3',
+		'C4_Receiver',
+		'C5_City',
+		'C6_ProvState',
+		'C7_PostalCode',
+		'C8_Phone',
+		'C9_Email',
+		'D0_Courier',
+		'D1_CountNo',
+		'D2_PhotoT',
+		'D3_PhotoF',
+		'D4_When',
+		'D5_ByWhoPrice',
+		'D6_Size',
+		'D7_HowMany',
+		'D8_StartTime',
+		'D9_EndTime',
+		'E0_When',
+		'E1_ByWhoReceive',
+		'F0_When',
+		'F1_ByWhoDispatch',
+		'F2_ToWho',
+		'G0_When',
+		'G1_ByWhoLoad',
+		'H0_When',
+		'H1_ByWhoTrouble',
+		'H2_TroubleReason',
+		'H3_Comment',
+		'H4_Photo',
+		'I0_When',
+		'I1_ByWhoFinish',
+		'I2_FinishType',
+		'I3_Comment',
+		'I4_Photo',
+		'I5_Receiver',
+		'J0_When',
+		'J1_ByWhoPrice',
+		'J2_Size',
+		'J3_HowMuch',
+		'K0_When',
+		'K1_ByWhoGroup',
+		'K2_GroupCode',
+		'L0_LastStep'
+	];
+	for (let item of map.values()){
+		var obj = new Object();
+		console.log(item);
+		for (var k = 0; k < backupArr.length; k++){
+			console.log(item[k+1]);
+			obj[backupArr[k]]=item[k+1];
+		}		
+		 var newPostRef = refBackup.child(item[5]).push();
+		 newPostRef.set(obj);
+	}
+	for (let item2 of map.keys()){
+		var newPostRef2 = refOrig.child(item2);
+		newPostRef2.remove();
+	}
+	barcodeChoosedArr=[];
+	refresh();
 }
 
 function getFileName(){
-//var myFileName=document.getElementById("browse").value;
-//window.alert("fileName="+myFileName);
+	var myFileName=document.getElementById("browseFile").value;
+	//window.alert("fileName="+myFileName+"@"+userInfoObj.company+"#");
 
-// (B1) GET SELECTED CSV FILE
-let selected = document.getElementById("browse").files[0];
-
-// (B2) READ CSV INTO ARRAY
-let reader = new FileReader();
-	reader.addEventListener("loadend", () => {
-	// ===(B2-1) SPLIT ROWS & COLUMNS
-	let data = reader.result.split("\r\n");
-	//console.log(data);
-	for (var i = 0; i < data.length; i++) {
-		var strk=data[i];
-		var complex=false;
-		var newStr='';
-		for (var k = 0; k < strk.length; k++){
-			let c=strk[k];
-				if(c=='"'){
-					//===newStr += c;
-					if(complex){
-						complex = false;
+	if(myFileName.includes(userInfoObj.company)){
+	// (B1) GET SELECTED CSV FILE
+	let selected = document.getElementById("browseFile").files[0];
+	
+	// (B2) READ CSV INTO ARRAY
+	let reader = new FileReader();
+		reader.addEventListener("loadend", () => {
+		// ===(B2-1) SPLIT ROWS & COLUMNS
+		let data = reader.result.split("\r\n");
+		//console.log(data);
+		for (var i = 0; i < data.length; i++) {
+			var strk=data[i];
+			var complex=false;
+			var newStr='';
+			for (var k = 0; k < strk.length; k++){
+				let c=strk[k];
+					if(c=='"'){
+						//===newStr += c;
+						if(complex){
+							complex = false;
+						}else{
+							complex = true;
+						}
 					}else{
-						complex = true;
+						if(complex && c==',' ){
+							newStr += ';';
+						}else{					
+							newStr += c;
+						}
 					}
-				}else{
-					if(complex && c==',' ){
-						newStr += ';';
-					}else{					
-						newStr += c;
-					}
-				}
-
+	
+			}
+				data[i] = newStr;
+				data[i] = data[i].split(",");
+				
 		}
-			data[i] = newStr;
-			data[i] = data[i].split(",");
-			
+	
+		//===var data1=data.slice(0,-1)
+		// console.log(data);
+		 writeToFirebase(data);
+		});
+	reader.readAsText(selected);
+	}else{
+		window.alert("this data is not for you!");
 	}
-
-	//===var data1=data.slice(0,-1)
-	// console.log(data);
-	 writeToFirebase(data);
-	});
-reader.readAsText(selected);
+	myFileName="1234";
 }
 
 
