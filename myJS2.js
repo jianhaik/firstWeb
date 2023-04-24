@@ -1216,7 +1216,7 @@ function troubleFinishArr(){
 		'CustomReceiver',
 		'noUse1',
 		'TimePrice',
-		'noUse2',
+		'LocationPrice',
 		'DeliveryPrice',
 		'GroupTime',
 		'ByWhoGroup',
@@ -1904,7 +1904,7 @@ function getChoosedLines(){
 	  refresh();
 }
 
-var po2,po5,po6,po4;
+var po1,po2,po3,po5,po6,po4;
 function targetHandle(){
 	console.log(navpo[1]);
 	console.log(barcodeArr);
@@ -1963,10 +1963,12 @@ function targetHandle(){
 			var finiArr = new Array();
 			var tTitleArr = new Array();
 			var fTitleArr = new Array();
-			var potArr1=[4,51,53,7,12,39,40,41];
-			var pofArr3=[4,51,53,7,12,44,45,49];
+			var potArr1=[4,51,52,53,7,12,39,40,41];
+			var pofArr3=[4,51,52,53,7,12,44,45,49];
 			po2=potArr1.indexOf("53");
 			po4=pofArr3.indexOf("53");
+			po1=potArr1.indexOf("52");
+			po3=pofArr3.indexOf("52");
 			po5=potArr1.indexOf("51");
 			po6=pofArr3.indexOf("51");
 			
@@ -2153,7 +2155,15 @@ function adjustTFarr(troubleArr2,finishArr2,billMap) {
 		}
 		var abc=item[57]+item[28]+item[7]+item[29]+bc;		
 		var price = billMap.get(abc);
+		var abcd=item[57]+'Location'+item[7]+item[19].substring(0,3);		
+		var locationPrice = billMap.get(abcd);
 		item[53]=Number(price);
+		if(locationPrice=='null'){
+			item[52]=Number(0.00);
+		}else{
+			item[52]=Number(locationPrice);	
+		}
+		
 		item[51]=Number(0.00);
 	}
 
@@ -2167,9 +2177,17 @@ function adjustTFarr(troubleArr2,finishArr2,billMap) {
 		if(item[29]=='nil'){
 			item[29]='1';
 		}
-		var abc=item[57]+item[28]+item[7]+item[29]+bc;		
-		var price = billMap.get(abc);
-		item[53]=Number(price);
+		var abc1=item[57]+item[28]+item[7]+item[29]+bc;		
+		var price1 = billMap.get(abc1);
+		var abcd1=item[57]+'Location'+item[7]+item[19].substring(0,3);		
+		var locationPrice1 = billMap.get(abcd1);
+		item[53]=Number(price1);
+		if(locationPrice1=='null'){
+			item[52]=Number(0.00);
+		}else{
+			item[52]=Number(locationPrice1);	
+		}
+		
 		if(item[30] != 'nil' && item[28]=='Skid'){
 			var def=item[57]+'Time'+item[7]+'oneHour';
 			var timePrice=Number(billMap.get(def))/4;
@@ -2214,10 +2232,10 @@ function download(tTitleArr,tData,fTitleArr,fData, filename, type) {
 			csvStr += tData[j][k]+"\t,"
 			
 		}
-		tPrice=tPrice+tData[j][po2]+tData[j][po5];
+		tPrice=tPrice+tData[j][po2]+tData[j][po1]+tData[j][po5];
 		csvStr = csvStr.slice(0,-1)+'\r\n';
 	}
-	csvStr = csvStr+"Bill for T="+tPrice.toFixed(2)+'\r\n';
+	csvStr = csvStr+"Bill for T="+tPrice+'\r\n';
 	csvStr = csvStr.slice(0,-1)+'\r\n';
 	
 	csvStr = csvStr+"FinishedItems="+fData.length+'\r\n';
@@ -2230,10 +2248,11 @@ function download(tTitleArr,tData,fTitleArr,fData, filename, type) {
 			csvStr += fData[n][p]+"\t,"
 			
 		}
-		fPrice=fPrice+fData[n][po4]+fData[n][po6];
+		fPrice=fPrice+fData[n][po4]+fData[n][po3]+fData[n][po6];
 		csvStr = csvStr.slice(0,-1)+'\r\n';
 	}
-	csvStr = csvStr+"Bill for F="+fPrice.toFixed(2)+'\r\n';
+	//csvStr = csvStr+"Bill for F="+fPrice.toFixed(2)+'\r\n';
+	csvStr = csvStr+"Bill for F="+fPrice+'\r\n';
 	console.log(csvStr);
 	
 	var file = new Blob([csvStr], {type: type});
