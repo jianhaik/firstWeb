@@ -2156,14 +2156,16 @@ function adjustTFarr(troubleArr2,finishArr2,billMap) {
 		var abc=item[57]+item[28]+item[7]+item[29]+bc;		
 		var price = billMap.get(abc);
 		var abcd=item[57]+'Location'+item[7]+item[19].substring(0,3);		
-		var locationPrice = billMap.get(abcd);
-		item[53]=Number(price);
-		if(locationPrice=='null'){
-			item[52]=Number(0.00);
+		var locationPrice;
+		if(billMap.has(abcd)){
+			 locationPrice = billMap.get(abcd);
 		}else{
-			item[52]=Number(locationPrice);	
+			 locationPrice =0.00;
 		}
 		
+		//console.log("locationPrice="+locationPrice);
+		item[53]=Number(price);
+		item[52]=Number(locationPrice);	
 		item[51]=Number(0.00);
 	}
 
@@ -2180,14 +2182,15 @@ function adjustTFarr(troubleArr2,finishArr2,billMap) {
 		var abc1=item[57]+item[28]+item[7]+item[29]+bc;		
 		var price1 = billMap.get(abc1);
 		var abcd1=item[57]+'Location'+item[7]+item[19].substring(0,3);		
-		var locationPrice1 = billMap.get(abcd1);
+		var locationPrice1 ;
+		if(billMap.has(abcd1)){
+			locationPrice1 = billMap.get(abcd1);
+	    }else{
+			locationPrice1 =0.00;
+	    }		
 		item[53]=Number(price1);
-		if(locationPrice1=='null'){
-			item[52]=Number(0.00);
-		}else{
-			item[52]=Number(locationPrice1);	
-		}
-		
+		item[52]=Number(locationPrice1);
+
 		if(item[30] != 'nil' && item[28]=='Skid'){
 			var def=item[57]+'Time'+item[7]+'oneHour';
 			var timePrice=Number(billMap.get(def))/4;
@@ -2232,10 +2235,10 @@ function download(tTitleArr,tData,fTitleArr,fData, filename, type) {
 			csvStr += tData[j][k]+"\t,"
 			
 		}
-		tPrice=tPrice+tData[j][po2]+tData[j][po1]+tData[j][po5];
+		tPrice=tPrice+tData[j][1]+tData[j][2]+tData[j][3];
 		csvStr = csvStr.slice(0,-1)+'\r\n';
 	}
-	csvStr = csvStr+"Bill for T="+tPrice+'\r\n';
+	csvStr = csvStr+"Bill for T="+Number(tPrice).toFixed(2)+'\r\n';
 	csvStr = csvStr.slice(0,-1)+'\r\n';
 	
 	csvStr = csvStr+"FinishedItems="+fData.length+'\r\n';
@@ -2248,11 +2251,11 @@ function download(tTitleArr,tData,fTitleArr,fData, filename, type) {
 			csvStr += fData[n][p]+"\t,"
 			
 		}
-		fPrice=fPrice+fData[n][po4]+fData[n][po3]+fData[n][po6];
+		fPrice=fPrice+fData[n][1]+fData[n][2]+fData[n][3];
 		csvStr = csvStr.slice(0,-1)+'\r\n';
 	}
 	//csvStr = csvStr+"Bill for F="+fPrice.toFixed(2)+'\r\n';
-	csvStr = csvStr+"Bill for F="+fPrice+'\r\n';
+	csvStr = csvStr+"Bill for F="+Number(fPrice).toFixed(2)+'\r\n';
 	console.log(csvStr);
 	
 	var file = new Blob([csvStr], {type: type});
