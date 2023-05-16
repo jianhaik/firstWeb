@@ -100,7 +100,7 @@
     </select> <br><br>
     <!-- <input type="text" id="size" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br> -->
     <label for="howmany" style="color:blue;">HowMany:</label>
-    <select type="text" id="howmany" style="background-color:rgb(226, 222, 10);">
+    <select type="text" id="howmany" value="1" style="background-color:rgb(226, 222, 10);">
       <option value="nil">1</option>
       <option value="1">1</option>
       <option value="2">2</option> 
@@ -112,11 +112,14 @@
       <option value="8">8</option>
     </select> <br><br>
     <!-- <input type="text" id="howmany" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br> -->
+    
     <label for="starttime" style="color:blue;">StartTime:</label>
-    <input type="text" id="starttime" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+    <input type="text" id="starttime" value="6:00" style="background-color:rgb(226, 222, 10);"><br><br>
     <label for="endtime" style="color:blue;">EndTime:</label>
-    <input type="text" id="endtime" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
-    </div>
+    <input type="text" id="endtime" value="6:00" style="background-color:rgb(226, 222, 10);"><br><br>
+    <label for="extrafee" style="color:blue;">ExtraFee:</label>
+    <input type="text" id="extrafee" value="0.00" style="background-color:rgb(226, 222, 10);"><br><br>
+  </div>
 
   <div type="text" class="item">
       <!-- 2 -->
@@ -178,10 +181,16 @@ function readOutPutData() {
   document.getElementById('email').value=rowData[23];
   document.getElementById('courier').value=rowData[24];
   document.getElementById('size').value=rowData[30];
-  document.getElementById('howmany').value=rowData[31];
+  document.getElementById('howmany').value=rowData[31];  
   document.getElementById('starttime').value=rowData[32];
   document.getElementById('endtime').value=rowData[33];
+  if(rowData[52]=='nil'){
+    document.getElementById('extrafee').value='0.00';
+  }else{
+    document.getElementById('extrafee').value=rowData[52];
+  }
   
+
   document.getElementById('courier').readOnly=true;
 }
 
@@ -193,7 +202,7 @@ function actionSave() {
   var userInfoObj=JSON.parse(json2);
   var json=localStorage.getItem('outPut');
   var rowData=JSON.parse(json);
-  var inputArr=new Array(25);
+  var inputArr=new Array(26);
  inputArr[0] = document.getElementById('jobID').value;
  inputArr[1] = document.getElementById('modeID').value;
  inputArr[2] = document.getElementById('barcode').value;
@@ -219,6 +228,7 @@ function actionSave() {
  inputArr[22] = document.getElementById('howmany').value;
  inputArr[23] = document.getElementById('starttime').value;
  inputArr[24] = document.getElementById('endtime').value;
+ inputArr[25] = document.getElementById('extrafee').value;
  
  var titleArr=new Array(
         'B0_JobID',
@@ -245,8 +255,8 @@ function actionSave() {
         'D6_Size',
         'D7_HowMany',
         'D8_StartTime',
-        'D9_EndTime'
-
+        'D9_EndTime',
+        'J0_When'
         );
 
         var obj = new Object();
@@ -260,7 +270,7 @@ function actionSave() {
           for (var i2 = 0; i2 < 21; i2++) {
             obj[titleArr[i2]] = inputArr[i2];
           }
-          for (var i3 = 21; i3 < 25; i3++) {
+          for (var i3 = 21; i3 < 26; i3++) {
            
               if(i3==21 && inputArr[i3]=='nil'){
                 obj[titleArr[i3]] ='Parcel';
@@ -289,7 +299,7 @@ function actionSave() {
         
               }
           }
-          for (var i = 21; i < 25; i++) {
+          for (var i = 21; i < 26; i++) {
               if(inputArr[i]!=rowData[i+9]){
                 if(i==21 && inputArr[i]=='nil'){
                   obj[titleArr[i]] ='Parcel';

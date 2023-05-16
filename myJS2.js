@@ -1214,11 +1214,11 @@ function troubleFinishArr(){
 		'FinishComment',
 		'FinishPhoto',
 		'CustomReceiver',
-		'noUse1',
+		'ExtraFee',
 		'TimePrice',
 		'LocationPrice',
 		'DeliveryPrice',
-		'GroupTime',
+		'HighServiceFee',
 		'ByWhoGroup',
 		'GroupCode',
 		'LastStep'
@@ -1285,6 +1285,7 @@ function troubleFinishArr(){
 					}
 					itemT[28]=endDataArr[28];
 					itemT[29]=endDataArr[29];
+					itemT[50]=endDataArr[50];
 				}
 				
 			}	
@@ -1298,6 +1299,7 @@ function troubleFinishArr(){
 					item[29]=endDataArr[29];
 					item[30]=endDataArr[30];
 					item[31]=endDataArr[31];
+					item[50]=endDataArr[50];
 				}
 			}		
 	} 
@@ -1904,7 +1906,7 @@ function getChoosedLines(){
 	  refresh();
 }
 
-var po1,po2,po3,po5,po6,po4;
+//var po1,po2,po3,po5,po6,po4;
 function targetHandle(){
 	console.log(navpo[1]);
 	console.log(barcodeArr);
@@ -1963,14 +1965,14 @@ function targetHandle(){
 			var finiArr = new Array();
 			var tTitleArr = new Array();
 			var fTitleArr = new Array();
-			var potArr1=[4,51,52,53,7,12,39,40,41];
-			var pofArr3=[4,51,52,53,7,12,44,45,49];
-			po2=potArr1.indexOf("53");
-			po4=pofArr3.indexOf("53");
-			po1=potArr1.indexOf("52");
-			po3=pofArr3.indexOf("52");
-			po5=potArr1.indexOf("51");
-			po6=pofArr3.indexOf("51");
+			var potArr1=[4,50,51,52,53,54,7,12,39,40,41];//trouble
+			var pofArr3=[4,50,51,52,53,54,7,12,44,45,49];//finish
+			// po2=potArr1.indexOf("53");
+			// po4=pofArr3.indexOf("53");
+			// po1=potArr1.indexOf("52");
+			// po3=pofArr3.indexOf("52");
+			// po5=potArr1.indexOf("51");
+			// po6=pofArr3.indexOf("51");
 			
 			for(let item1 of potArr1){
 				tTitleArr.push(columnShowArr[Number(item1)]);
@@ -1983,7 +1985,7 @@ function targetHandle(){
 				const mDate = new Date(strTime.replace(/-/g,"/"));//时间戳为10位需*1000，时间戳为13位的话不需乘1000
 				console.log(troubleArr[i][39].substring(0,10));
 				console.log(mDate);
-				 po1=potArr1.indexOf("39");			
+				// po1=potArr1.indexOf("39");			
 				if(editObj.driver=='all drivers'){
 					if(dmin<=mDate && mDate<=dmax){					
 						var tTempArr1 = new Array();
@@ -2009,7 +2011,7 @@ function targetHandle(){
 			for (var j = 0; j < finishArr.length; j++){			
 				const strTime=finishArr[j][44].substring(0,10);
 				const mDate2 = new Date(strTime.replace(/-/g,"/"));//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-				 po3=pofArr3.indexOf("44");
+				// po3=pofArr3.indexOf("44");
 				if(editObj.driver=='all drivers'){
 					if(dmin<=mDate2 && mDate2<=dmax){					
 						var fTempArr3 = new Array();
@@ -2142,7 +2144,7 @@ function getBillForm()
 }
 
 function adjustTFarr(troubleArr2,finishArr2,billMap) {
-
+	var whenTArr = new Array();
 	for(let item of troubleArr2){
 		if(item[28]=='Skid'){
 			var bc='S';
@@ -2165,10 +2167,33 @@ function adjustTFarr(troubleArr2,finishArr2,billMap) {
 		
 		//console.log("locationPrice="+locationPrice);
 		item[53]=Number(price);
-		item[52]=Number(locationPrice);	
+		
+		if(item[30] != 'nil' && item[28]=='Skid'){
+			item[52]=Number(locationPrice);
+		}else{
+			item[52]=Number(0.00);
+		}
 		item[51]=Number(0.00);
+
+		if(item[50]=='nil'){
+			item[50]=Number(0.00);
+		}
+
+		if(item[8]=='HighService' && !whenTArr.includes(item[39])){
+			whenTArr.push(item[39]);
+			var abdT=item[57]+'HighService'+item[7]+'ServiceFee';		
+			var HighServiceFeeT ;
+			if(billMap.has(abdT)){
+				HighServiceFeeT = billMap.get(abdT);
+			}else{
+				HighServiceFeeT =0.00;
+			}		
+
+			item[54]=Number(HighServiceFeeT);
+		}
 	}
 
+	var whenFArr = new Array();
 	for(let item of finishArr2){
 		if(item[28]=='Skid'){
 			var bc='S';
@@ -2188,9 +2213,14 @@ function adjustTFarr(troubleArr2,finishArr2,billMap) {
 	    }else{
 			locationPrice1 =0.00;
 	    }		
+		
 		item[53]=Number(price1);
-		item[52]=Number(locationPrice1);
-
+		
+		if(item[30] != 'nil' && item[28]=='Skid'){
+			item[52]=Number(locationPrice1);
+		}else{
+			item[52]=Number(0.00);
+		}
 		if(item[30] != 'nil' && item[28]=='Skid'){
 			var def=item[57]+'Time'+item[7]+'oneHour';
 			var timePrice=Number(billMap.get(def))/4;
@@ -2212,7 +2242,21 @@ function adjustTFarr(troubleArr2,finishArr2,billMap) {
 		}else{
 			item[51]=Number(0.00);
 		}
-		
+		if(item[50]=='nil'){
+			item[50]=Number(0.00);
+		}
+		if(item[8]=='HighService' && !whenFArr.includes(item[44])){
+			whenFArr.push(item[44]);
+			var abd=item[57]+'HighService'+item[7]+'ServiceFee';		
+			var HighServiceFee ;
+			if(billMap.has(abd)){
+				HighServiceFee = billMap.get(abd);
+			}else{
+				HighServiceFee =0.00;
+			}		
+
+			item[54]=Number(HighServiceFee);
+		}
 
 	}
 console.log(troubleArr2);
@@ -2235,7 +2279,7 @@ function download(tTitleArr,tData,fTitleArr,fData, filename, type) {
 			csvStr += tData[j][k]+"\t,"
 			
 		}
-		tPrice=tPrice+tData[j][1]+tData[j][2]+tData[j][3];
+		tPrice=tPrice+tData[j][1]+tData[j][2]+tData[j][3]+tData[j][4]+tData[j][5];
 		csvStr = csvStr.slice(0,-1)+'\r\n';
 	}
 	csvStr = csvStr+"Bill for T="+Number(tPrice).toFixed(2)+'\r\n';
@@ -2251,7 +2295,7 @@ function download(tTitleArr,tData,fTitleArr,fData, filename, type) {
 			csvStr += fData[n][p]+"\t,"
 			
 		}
-		fPrice=fPrice+fData[n][1]+fData[n][2]+fData[n][3];
+		fPrice=fPrice+fData[n][1]+fData[n][2]+fData[n][3]+fData[n][4]+fData[n][5];
 		csvStr = csvStr.slice(0,-1)+'\r\n';
 	}
 	//csvStr = csvStr+"Bill for F="+fPrice.toFixed(2)+'\r\n';
