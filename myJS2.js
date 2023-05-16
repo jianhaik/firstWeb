@@ -2178,7 +2178,7 @@ function adjustTFarr(troubleArr2,finishArr2,billMap) {
 		if(item[50]=='nil'){
 			item[50]=Number(0.00);
 		}
-
+		item[54]=Number(0.00);
 		if(item[8]=='HighService' && !whenTArr.includes(item[39])){
 			whenTArr.push(item[39]);
 			var abdT=item[57]+'HighService'+item[7]+'ServiceFee';		
@@ -2245,6 +2245,7 @@ function adjustTFarr(troubleArr2,finishArr2,billMap) {
 		if(item[50]=='nil'){
 			item[50]=Number(0.00);
 		}
+		item[54]=Number(0.00);
 		if(item[8]=='HighService' && !whenFArr.includes(item[44])){
 			whenFArr.push(item[44]);
 			var abd=item[57]+'HighService'+item[7]+'ServiceFee';		
