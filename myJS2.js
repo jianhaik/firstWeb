@@ -228,7 +228,7 @@ function preExcelData(origObj){
 				
 			}		
 			
-			var specialPo=[0,32,34,37,39,44,50,54];
+			var specialPo=[0,32,34,37,39,44];
 			for (var j = 0; j < keyArr.length; j++) {
 								
 				for (var k in keyArr[j]) {
