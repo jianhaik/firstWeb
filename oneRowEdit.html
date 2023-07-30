@@ -158,7 +158,8 @@ window.onload = function() {
 function readOutPutData() {
   var json=localStorage.getItem('outPut');
   var rowData=JSON.parse(json);
-  
+  var json21=localStorage.getItem('userInfo');
+  var userInfoObj1=JSON.parse(json21);
   document.getElementById('jobID').value=rowData[4];
   document.getElementById('modeID').value=rowData[5];
   document.getElementById('barcode').value=rowData[6];
@@ -179,7 +180,7 @@ function readOutPutData() {
   document.getElementById('postalCode').value=rowData[21];
   document.getElementById('phone').value=rowData[22];
   document.getElementById('email').value=rowData[23];
-  document.getElementById('courier').value=rowData[24];
+  document.getElementById('courier').value=userInfoObj1.company;
   document.getElementById('size').value=rowData[30];
   document.getElementById('howmany').value=rowData[31];  
   document.getElementById('starttime').value=rowData[32];
@@ -287,7 +288,7 @@ function actionSave() {
         }else{
           if(rowData[59]=='Finished'){
           //obj['L0_LastStep'] = 'Finished';
-          obj['I1_ByWhoFinish'] = userInfoObj.username;
+          //obj['I1_ByWhoFinish'] = userInfoObj.username;
           }else{//not finished
           obj['L0_LastStep'] = 'UnDispatch';
           
