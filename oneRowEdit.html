@@ -192,8 +192,7 @@ function readOutPutData() {
   document.getElementById('modeID').value=rowData[5];
   document.getElementById('barcode').value=rowData[6];
   document.getElementById('carrierRef').value=rowData[7];
-  document.getElementById('scheduledDate').value=rowData[8];
-  
+  document.getElementById('scheduledDate').value=rowData[8];  
   
   document.getElementById('serviceType').value=rowData[10];
   document.getElementById('weight').value=rowData[11];
@@ -238,7 +237,7 @@ function actionSave() {
  inputArr[2] = document.getElementById('barcode').value;
  inputArr[3] = document.getElementById('carrierRef').value;
  inputArr[4] = document.getElementById('scheduledDate').value;
- inputArr[5] = document.getElementById('btacc').value;
+ inputArr[5] = document.getElementById('selectCli').value;
  inputArr[6] = document.getElementById('serviceType').value;
  inputArr[7] = document.getElementById('weight').value;
  inputArr[8] = document.getElementById('unit').value;
