@@ -74,7 +74,8 @@
     <label for="scheduledDate" style="color:blue;">ScheduledDate:</label>
     <input type="text" id="scheduledDate" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
     <label for="btacc" style="color:blue;">BTACC:</label>
-    <input type="text" id="btacc" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
+    <select id="selectCli" >		 
+    </select> <br><br>
     <label for="serviceType" style="color:blue;">ServiceType:</label>
     <select type="text" id="serviceType" style="background-color:rgb(226, 222, 10);">
       <option type="text" value="Normal" style="background-color:rgb(226, 222, 10);">Normal</option>
@@ -160,12 +161,32 @@ function readOutPutData() {
   var rowData=JSON.parse(json);
   var json21=localStorage.getItem('userInfo');
   var userInfoObj1=JSON.parse(json21);
+  var json22=localStorage.getItem('allClient');
+  var allClients=JSON.parse(json22);
+  var clientArr = new Array();
+  clientArr=allClients;
+  clientArr.shift();
+  var myClients=document.getElementById("selectCli");
+		
+		for (const v of clientArr) {			
+		var optionC = document.createElement('option');
+		optionC.style.alignSelf="center";
+		optionC.appendChild(document.createTextNode(v));
+		optionC.setAttribute('value',v)
+		myClients.appendChild(optionC);
+		}
+
   document.getElementById('jobID').value=rowData[4];
   document.getElementById('modeID').value=rowData[5];
   document.getElementById('barcode').value=rowData[6];
   document.getElementById('carrierRef').value=rowData[7];
   document.getElementById('scheduledDate').value=rowData[8];
-  document.getElementById('btacc').value=rowData[9];
+  if(rowData[9]=='nil'){
+    document.getElementById('btacc').value="NEW";
+  }else{
+    document.getElementById('btacc').value=rowData[9];
+  }
+  
   document.getElementById('serviceType').value=rowData[10];
   document.getElementById('weight').value=rowData[11];
   document.getElementById('unit').value=rowData[12];

@@ -44,6 +44,11 @@
 				  
 				</select>
 				<br> <br> 
+				<label for="client" style="color:blue;">Client:</label>
+				<select id="selectClient" >
+					 
+				</select>
+				<br> <br> 
 				<label for="from" style="color:blue;">Date From:</label>
 				<select id="dateFrom" >
 					 
@@ -65,10 +70,14 @@
     <script>
 		
     var driverArr = new Array();
-    window.onload = function() {
+    var clientArr = new Array();
+	window.onload = function() {
             var driver = window.sessionStorage.getItem('driverList');
             var driverArr1=JSON.parse(driver);
             driverArr=driverArr1;
+			var client = window.localStorage.getItem('allClient');
+            var clientArr1=JSON.parse(client);
+            clientArr=clientArr1;
             createUl2();
     };
 
@@ -94,6 +103,16 @@
 		option.setAttribute('value',driverName)
 		selectItems.appendChild(option);
 			
+		}
+		
+		var myClients=document.getElementById("selectClient");
+		
+		for (const v of clientArr) {			
+		var optionC = document.createElement('option');
+		optionC.style.alignSelf="center";
+		optionC.appendChild(document.createTextNode(v));
+		optionC.setAttribute('value',v)
+		myClients.appendChild(optionC);
 		}
 		
 		
