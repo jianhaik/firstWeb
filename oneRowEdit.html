@@ -74,7 +74,7 @@
     <label for="scheduledDate" style="color:blue;">ScheduledDate:</label>
     <input type="text" id="scheduledDate" value="Mickey2" style="background-color:rgb(226, 222, 10);"><br><br>
     <label for="btacc" style="color:blue;">BTACC:</label>
-    <select id="selectCli" >		 
+    <select id="selectCli" style="background-color:rgb(226, 222, 10);">		 
     </select> <br><br>
     <label for="serviceType" style="color:blue;">ServiceType:</label>
     <select type="text" id="serviceType" style="background-color:rgb(226, 222, 10);">
@@ -166,9 +166,21 @@ function readOutPutData() {
   var clientArr = new Array();
   clientArr=allClients;
   clientArr.shift();
+  var clientArr2 = new Array();
+  if(rowData[9]=='nil'){
+    
+  }else{
+    
+    clientArr2.push(rowData[9]);
+    for (const v1 of clientArr) {
+      if(!clientArr2.includes(v1)){
+        clientArr2.push(v1);
+      }
+    }
+  }
   var myClients=document.getElementById("selectCli");
 		
-		for (const v of clientArr) {			
+		for (const v of clientArr2) {			
 		var optionC = document.createElement('option');
 		optionC.style.alignSelf="center";
 		optionC.appendChild(document.createTextNode(v));
@@ -181,11 +193,7 @@ function readOutPutData() {
   document.getElementById('barcode').value=rowData[6];
   document.getElementById('carrierRef').value=rowData[7];
   document.getElementById('scheduledDate').value=rowData[8];
-  if(rowData[9]=='nil'){
-    document.getElementById('btacc').value="NEW";
-  }else{
-    document.getElementById('btacc').value=rowData[9];
-  }
+  
   
   document.getElementById('serviceType').value=rowData[10];
   document.getElementById('weight').value=rowData[11];
