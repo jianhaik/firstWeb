@@ -282,15 +282,26 @@ function preExcelData(origObj){
 	console.log(dataMap.values());
 	console.log(dataArr);
 	
+	var allClient = new Array();//Array()
+	allClient.push("All Clients");
+	allClient.push("NEW");
 	for (var m = 0; m < dataArr.length; m++) {
 			var deliverDate=dataArr[m][7];
+			var eachClient = dataArr[m][8];
 			if(!allDate.includes(deliverDate)){				
 				allDate.push(deliverDate);
+			}
+			if(!allClient.includes(eachClient) && eachClient!='nil'){				
+				allClient.push(eachClient);
 			}
 	}
 
 	allDate.sort();
 	allDate.push("Date for all");
+
+	var json3 = JSON.stringify(allClient);//调用stringify()将一个JS对象转换为JSON
+	window.localStorage.setItem('allClient', json3);
+	
 	//groupOrderBy(dataMap,  6,  20)
 	createUl();
 }
