@@ -156,16 +156,19 @@
 
 	function actionSave()	{
 		var selectItems=document.getElementById("selectElem");
+		var selectClient=document.getElementById("selectClient");
 		var selectYear=document.getElementById("dateFrom");
 		var selectMonth=document.getElementById("dateTo");
 		
 		var driver=selectItems.value;
+		var client=selectClient.value;
 		var yy=selectYear.value;
 		var mm=selectMonth.value;
 		
 		
 		var obj = new Object();
 		obj['driver'] = driver;
+		obj['client'] = client;
 		obj['dateFrom'] = yy;
 		obj['dateTo'] = mm;
 		

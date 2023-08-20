@@ -1230,7 +1230,7 @@ function troubleFinishArr(){
 		'LocationPrice',
 		'DeliveryPrice',
 		'HighServiceFee',
-		'ByWhoGroup',
+		'SumPrice',
 		'GroupCode',
 		'LastStep'
 	];
@@ -1294,8 +1294,9 @@ function troubleFinishArr(){
 					for (var jk = 2; jk < 22; jk++){
 						itemT[jk]=endDataArr[jk];
 					}
+					
 					itemT[28]=endDataArr[28];
-					itemT[29]=endDataArr[29];
+					itemT[29]=endDataArr[29];									
 					itemT[50]=endDataArr[50];
 				}
 				
@@ -1305,9 +1306,8 @@ function troubleFinishArr(){
 					for (var jh = 2; jh < 22; jh++){
 						item[jh]=endDataArr[jh];
 					}
-					
-					item[28]=endDataArr[28];
-					item[29]=endDataArr[29];
+					itemT[28]=endDataArr[28];				
+					itemT[29]=endDataArr[29];	
 					item[30]=endDataArr[30];
 					item[31]=endDataArr[31];
 					item[50]=endDataArr[50];
@@ -1976,8 +1976,8 @@ function targetHandle(){
 			var finiArr = new Array();
 			var tTitleArr = new Array();
 			var fTitleArr = new Array();
-			var potArr1=[4,50,51,52,53,54,7,12,39,40,41];//trouble
-			var pofArr3=[4,50,51,52,53,54,7,12,44,45,49];//finish
+			var potArr1=[4,50,51,52,53,54,55,7,12,39,40,41];//trouble
+			var pofArr3=[4,50,51,52,53,54,55,7,12,44,45,49];//finish
 			// po2=potArr1.indexOf("53");
 			// po4=pofArr3.indexOf("53");
 			// po1=potArr1.indexOf("52");
@@ -1996,26 +1996,60 @@ function targetHandle(){
 				const mDate = new Date(strTime.replace(/-/g,"/"));//时间戳为10位需*1000，时间戳为13位的话不需乘1000
 				console.log(troubleArr[i][39].substring(0,10));
 				console.log(mDate);
-				// po1=potArr1.indexOf("39");			
-				if(editObj.driver=='all drivers'){
-					if(dmin<=mDate && mDate<=dmax){					
-						var tTempArr1 = new Array();
-						for(let item of potArr1){
-							tTempArr1.push(troubleArr[i][Number(item)]);
-						}					
-						//tTempArr1[po1]=mDate.toISOString();
-						trouArr.push(tTempArr1);
-					}
-				}else{
-					if(dmin<=mDate && mDate<=dmax && editObj.driver==troubleArr[i][40]){					
-						var tTempArr2 = new Array();
-						for(let item of potArr1){
-							tTempArr2.push(troubleArr[i][Number(item)]);
-						}					
-						//tTempArr2[po1]=mDate.toISOString();					
-						trouArr.push(tTempArr2);
-					}
-				}
+				if(dmin<=mDate && mDate<=dmax){
+					if(editObj.driver=='all drivers'){
+						if(editObj.client=='All Clients'){
+							var tTempArr1 = new Array();
+							for(let item of potArr1){
+								tTempArr1.push(troubleArr[i][Number(item)]);
+							}					
+							trouArr.push(tTempArr1);
+						}else{
+							if(editObj.client==troubleArr[i][7]){
+								var tTempArr2 = new Array();
+								for(let item of potArr1){
+									tTempArr2.push(troubleArr[i][Number(item)]);
+								}					
+								trouArr.push(tTempArr2);
+							}	
+						}	
+					}else{
+						if(editObj.client=='All Clients'){
+							if(editObj.driver==troubleArr[i][40]){					
+								var tTempArr3 = new Array();
+								for(let item of potArr1){
+									tTempArr3.push(troubleArr[i][Number(item)]);
+								}									
+								trouArr.push(tTempArr3);
+							}
+						}else{
+							if(editObj.driver==troubleArr[i][40] && editObj.client==troubleArr[i][7]){					
+								var tTempArr4 = new Array();
+								for(let item of potArr1){
+									tTempArr4.push(troubleArr[i][Number(item)]);
+								}									
+								trouArr.push(tTempArr4);
+							}
+						}
+					}	
+				}			
+				// if(editObj.driver=='all drivers'){
+				// 	if(dmin<=mDate && mDate<=dmax){					
+				// 		var tTempArr1 = new Array();
+				// 		for(let item of potArr1){
+				// 			tTempArr1.push(troubleArr[i][Number(item)]);
+				// 		}					
+				// 		trouArr.push(tTempArr1);
+				// 	}
+				// }else{
+				// 	if(dmin<=mDate && mDate<=dmax && editObj.driver==troubleArr[i][40]){					
+				// 		var tTempArr2 = new Array();
+				// 		for(let item of potArr1){
+				// 			tTempArr2.push(troubleArr[i][Number(item)]);
+				// 		}									
+				// 		trouArr.push(tTempArr2);
+				// 	}
+				// }
 				
 			}
 	
@@ -2023,25 +2057,61 @@ function targetHandle(){
 				const strTime=finishArr[j][44].substring(0,10);
 				const mDate2 = new Date(strTime.replace(/-/g,"/"));//时间戳为10位需*1000，时间戳为13位的话不需乘1000
 				// po3=pofArr3.indexOf("44");
-				if(editObj.driver=='all drivers'){
-					if(dmin<=mDate2 && mDate2<=dmax){					
-						var fTempArr3 = new Array();
-						for(let item of pofArr3){
-							fTempArr3.push(finishArr[j][Number(item)]);
+				if(dmin<=mDate2 && mDate2<=dmax){
+					if(editObj.driver=='all drivers'){
+						if(editObj.client=='All Clients'){
+							var fTempArr1 = new Array();
+							for(let item of pofArr3){
+								fTempArr1.push(finishArr[j][Number(item)]);
+							}			
+							finiArr.push(fTempArr1);
+						}else{
+							if(editObj.client==finishArr[j][7]){					
+								var fTempArr2 = new Array();
+								for(let item of pofArr3){
+									fTempArr2.push(finishArr[j][Number(item)]);
+								}				
+								finiArr.push(fTempArr2);					
+							}	
+						}	
+					}else{
+						if(editObj.client=='All Clients'){
+							if(editObj.driver==finishArr[j][45]){					
+								var fTempArr3 = new Array();
+								for(let item of pofArr3){
+									fTempArr3.push(finishArr[j][Number(item)]);
+								}				
+								finiArr.push(fTempArr3);					
+							}
+						}else{
+							if(editObj.driver==finishArr[j][45] && editObj.client==finishArr[j][7]){					
+								var fTempArr4 = new Array();
+								for(let item of pofArr3){
+									fTempArr4.push(finishArr[j][Number(item)]);
+								}				
+								finiArr.push(fTempArr4);					
+							}
 						}
-						//fTempArr3[po3]=finishArr[j][44];
-						finiArr.push(fTempArr3);					
-					}
-				}else{
-					if(dmin<=mDate2 && mDate2<=dmax && editObj.driver==finishArr[j][45]){					
-						var fTempArr4 = new Array();
-						for(let item of pofArr3){
-							fTempArr4.push(finishArr[j][Number(item)]);
-						}					
-						//fTempArr4[po3]=finishArr[j][44];
-						finiArr.push(fTempArr4);					
-					}
+					}	
 				}
+				
+				// if(editObj.driver=='all drivers'){
+				// 	if(dmin<=mDate2 && mDate2<=dmax){					
+				// 		var fTempArr3 = new Array();
+				// 		for(let item of pofArr3){
+				// 			fTempArr3.push(finishArr[j][Number(item)]);
+				// 		}			
+				// 		finiArr.push(fTempArr3);					
+				// 	}
+				// }else{
+				// 	if(dmin<=mDate2 && mDate2<=dmax && editObj.driver==finishArr[j][45]){					
+				// 		var fTempArr4 = new Array();
+				// 		for(let item of pofArr3){
+				// 			fTempArr4.push(finishArr[j][Number(item)]);
+				// 		}				
+				// 		finiArr.push(fTempArr4);					
+				// 	}
+				// }
 				
 			}
 			console.log(trouArr);
@@ -2159,7 +2229,7 @@ function adjustTFarr(troubleArr2,finishArr2,billMap) {
 	for(let item of troubleArr2){
 		if(item[28]=='Skid'){
 			var bc='S';
-		}else{
+		}else{	
 			item[28]='Parcel';
 			var bc='P';
 		}
@@ -2202,6 +2272,7 @@ function adjustTFarr(troubleArr2,finishArr2,billMap) {
 
 			item[54]=Number(HighServiceFeeT);
 		}
+		item[55]=Number(item[50])+Number(item[51])+Number(item[52])+Number(item[53])+Number(item[54]);
 	}
 
 	var whenFArr = new Array();
@@ -2269,7 +2340,7 @@ function adjustTFarr(troubleArr2,finishArr2,billMap) {
 
 			item[54]=Number(HighServiceFee);
 		}
-
+		item[55]=Number(item[50])+Number(item[51])+Number(item[52])+Number(item[53])+Number(item[54]);
 	}
 console.log(troubleArr2);
 console.log(finishArr2);
