@@ -1306,8 +1306,8 @@ function troubleFinishArr(){
 					for (var jh = 2; jh < 22; jh++){
 						item[jh]=endDataArr[jh];
 					}
-					itemT[28]=endDataArr[28];				
-					itemT[29]=endDataArr[29];	
+					item[28]=endDataArr[28];				
+					item[29]=endDataArr[29];	
 					item[30]=endDataArr[30];
 					item[31]=endDataArr[31];
 					item[50]=endDataArr[50];
