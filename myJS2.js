@@ -2362,7 +2362,7 @@ function download(tTitleArr,tData,fTitleArr,fData, filename, type) {
 			csvStr += tData[j][k]+"\t,"
 			
 		}
-		tPrice=tPrice+tData[j][1]+tData[j][2]+tData[j][3]+tData[j][4]+tData[j][5];
+		tPrice=tPrice+Number(tData[j][6]);
 		csvStr = csvStr.slice(0,-1)+'\r\n';
 	}
 	csvStr = csvStr+"Bill for T="+Number(tPrice).toFixed(2)+'\r\n';
@@ -2378,7 +2378,7 @@ function download(tTitleArr,tData,fTitleArr,fData, filename, type) {
 			csvStr += fData[n][p]+"\t,"
 			
 		}
-		fPrice=fPrice+fData[n][1]+fData[n][2]+fData[n][3]+fData[n][4]+fData[n][5];
+		fPrice=fPrice+Number(fData[n][6]);
 		csvStr = csvStr.slice(0,-1)+'\r\n';
 	}
 	//csvStr = csvStr+"Bill for F="+fPrice.toFixed(2)+'\r\n';
